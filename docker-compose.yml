@@ -6,3 +6,9 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+  cashregister:
+    image: cashregister:latest
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_RABBITMQ_HOST=rabbitmq
