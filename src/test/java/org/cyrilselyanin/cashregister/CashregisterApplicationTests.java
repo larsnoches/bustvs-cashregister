@@ -1,4 +1,4 @@
-package com.cyrilselyanin.cashregister;
+package org.cyrilselyanin.cashregister;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
