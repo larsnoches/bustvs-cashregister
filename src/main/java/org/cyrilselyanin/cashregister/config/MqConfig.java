@@ -1,5 +1,6 @@
 package org.cyrilselyanin.cashregister.config;
 
+import org.cyrilselyanin.cashregister.mq.CashRegisterReceiver;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
 public class MqConfig {
     /**
      * Direct exchange bean
-     * @return
+     * @return instance of direct exchange
      */
     @Bean
     public DirectExchange direct() {
@@ -23,9 +24,9 @@ public class MqConfig {
      */
     private static class ReceiveConfig {
         /**
-         * Queue bean, without strict name.
+         * Queue bean, without strict name (non-durable, exclusive, auto-delete).
          * Used with SPEL {autoDeletingQueue.name}
-         * @return
+         * @return some queue
          */
         @Bean
         public Queue autoDeletingQueue() {
@@ -34,9 +35,9 @@ public class MqConfig {
 
         /**
          * Binding for regcash routing key
-         * @param directExchange
-         * @param queue
-         * @return
+         * @param directExchange an exchange (direct)
+         * @param queue auto deleting queue
+         * @return a configured binding
          */
         @Bean
         public Binding binding(DirectExchange directExchange, Queue queue) {
@@ -44,6 +45,15 @@ public class MqConfig {
                     bind(queue)
                     .to(directExchange)
                     .with("regcash");
+        }
+
+        /**
+         * Bean for cash register receiver
+         * @return cash register receiver instance
+         */
+        @Bean
+        public CashRegisterReceiver receiver() {
+            return new CashRegisterReceiver();
         }
     }
 }
