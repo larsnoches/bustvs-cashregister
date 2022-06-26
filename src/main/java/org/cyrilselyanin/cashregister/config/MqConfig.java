@@ -1,6 +1,6 @@
 package org.cyrilselyanin.cashregister.config;
 
-import org.cyrilselyanin.cashregister.mq.CashRegisterReceiver;
+import org.cyrilselyanin.cashregister.service.CashRegisterReceiverService;
 import org.springframework.amqp.core.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -52,8 +52,8 @@ public class MqConfig {
          * @return cash register receiver instance
          */
         @Bean
-        public CashRegisterReceiver receiver() {
-            return new CashRegisterReceiver();
+        public CashRegisterReceiverService receiver() {
+            return new CashRegisterReceiverService();
         }
     }
 }
