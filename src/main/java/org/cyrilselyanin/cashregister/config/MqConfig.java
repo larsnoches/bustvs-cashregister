@@ -2,6 +2,9 @@ package org.cyrilselyanin.cashregister.config;
 
 import org.cyrilselyanin.cashregister.service.CashRegisterReceiverService;
 import org.springframework.amqp.core.*;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -45,6 +48,26 @@ public class MqConfig {
                     bind(queue)
                     .to(directExchange)
                     .with("regcash");
+        }
+
+        /**
+         * Custom rabbitMQ template with JSON converting
+         * @param connectionFactory some connection factory
+         * @return custom template
+         */
+        public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
+            final RabbitTemplate template = new RabbitTemplate(connectionFactory);
+            template.setMessageConverter(producerJackson2JsonMessageConverter());
+            return template;
+        }
+
+        /**
+         * Json message converter producer
+         * @return instance of the converter
+         */
+        @Bean
+        public Jackson2JsonMessageConverter producerJackson2JsonMessageConverter() {
+            return new Jackson2JsonMessageConverter();
         }
 
         /**
