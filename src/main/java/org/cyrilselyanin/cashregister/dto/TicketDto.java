@@ -6,50 +6,45 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 public class TicketDto {
-    @JsonProperty("ticket_id")
-    private Long id;
-
-    @JsonProperty("issue_datetime")
-    private Timestamp issueDateTime;
-
+    /**
+     * Passenger last name
+     */
     @JsonProperty("passenger_lastname")
     private String passengerLastname;
 
+    /**
+     * Passenger first name
+     */
     @JsonProperty("passenger_firstname")
     private String passengerFirstname;
 
+    /**
+     * Passenger middle name
+     */
     @JsonProperty("passenger_middlename")
     private String passengerMiddlename;
 
+    /**
+     * Number of a bus route
+     */
     @JsonProperty("bus_route_number")
     private String busRouteNumber;
 
-    @JsonProperty("qr_code")
-    private String qrCode;
-
-    @JsonProperty("seat_name")
-    private String seatName;
-
-    @JsonProperty("carrier_name")
-    private String carrierName;
-
+    /**
+     * Name of a departure bus point
+     */
     @JsonProperty("departure_buspoint_name")
     private String departureBuspointName;
 
-    @JsonProperty("arrival_buspoint_name")
-    private String arrivalBuspointName;
-
+    /**
+     * Time stamp of a bus departure
+     */
     @JsonProperty("departure_datetime")
     private Timestamp departureDateTime;
 
-    @JsonProperty("arrival_datetime")
-    private Timestamp arrivalDatetime;
-
+    /**
+     * Ticket price
+     */
     @JsonProperty("ticket_price")
     private BigDecimal price;
-
-//    private BusTrip busTrip;
-
-    @JsonProperty("user_id")
-    private String userId;
 }
