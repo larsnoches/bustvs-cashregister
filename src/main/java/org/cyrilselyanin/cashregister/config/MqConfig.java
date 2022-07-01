@@ -57,6 +57,7 @@ public class MqConfig {
          * @param connectionFactory some connection factory
          * @return custom template
          */
+        @Bean
         public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {
             final RabbitTemplate template = new RabbitTemplate(connectionFactory);
             template.setMessageConverter(producerJackson2JsonMessageConverter());

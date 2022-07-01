@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import lombok.AllArgsConstructor;
 
+@AllArgsConstructor
 public class TicketDto implements Serializable {
     /**
      * Passenger last name
