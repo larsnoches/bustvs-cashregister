@@ -12,7 +12,7 @@ import org.testcontainers.utility.DockerImageName;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 
 //@SpringJunitConfig
-@SpringRabbitTest
+// @SpringRabbitTest
 @SpringBootTest
 class CashregisterApplicationTests {
 
@@ -67,6 +67,9 @@ class CashregisterApplicationTests {
 			"regcash",
 			ticketDto
 		);
+
+		
 	}
+	
 
 }

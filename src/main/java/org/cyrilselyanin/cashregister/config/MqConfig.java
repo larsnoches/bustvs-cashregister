@@ -29,13 +29,14 @@ public class MqConfig {
      */
     private static class ReceiveConfig {
         /**
-         * Queue bean, without strict name (non-durable, exclusive, auto-delete).
+         * Queue bean, with a strict name (non-durable, exclusive, auto-delete).
          * Used with SPEL {autoDeletingQueue.name}
          * @return some queue
          */
         @Bean
         public Queue autoDeletingQueue() {
-            return new AnonymousQueue();
+            // return new AnonymousQueue();
+            return new Queue("cashregisterQueue", false, true, true);
         }
 
         /**
