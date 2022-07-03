@@ -2,13 +2,14 @@ version: "3"
 
 services:
   rabbitmq:
-    image: rabbitmq:management
+    image: rabbitmq:3.10.5-management-alpine
     ports:
       - "5672:5672"
       - "15672:15672"
-  cashregister:
-    image: cashregister:latest
-    depends_on:
-      - rabbitmq
-    environment:
-      - SPRING_RABBITMQ_HOST=rabbitmq
+#
+#  cashregister:
+#    image: cashregister:latest
+#    depends_on:
+#      - rabbitmq
+#    environment:
+#      - SPRING_RABBITMQ_HOST=rabbitmq

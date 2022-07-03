@@ -1,40 +1,46 @@
 package org.cyrilselyanin.cashregister;
 
+import org.cyrilselyanin.cashregister.dto.TicketDto;
+import org.cyrilselyanin.cashregister.service.CashRegisterReceiverService;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.amqp.rabbit.test.context.SpringRabbitTest;
+import org.springframework.amqp.core.Binding;
+import org.springframework.amqp.core.DirectExchange;
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.testcontainers.containers.GenericContainer;
-import org.testcontainers.containers.RabbitMQContainer;
-import org.testcontainers.junit.jupiter.Container;
-import org.testcontainers.utility.DockerImageName;
 import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.math.BigDecimal;
+import java.time.Duration;
 
 //@SpringJunitConfig
-// @SpringRabbitTest
+// @SpringRabbi
+// tTest
+
 @SpringBootTest
 class CashregisterApplicationTests {
-
-	@Container
-	public RabbitMQContainer container = new RabbitMQContainer("rabbitmq:management");
-
-	@AutoWired
+	@Autowired
 	public DirectExchange direct;
 
-	@AutoWired
+	@Autowired
 	public Queue autoDeletingQueue;
 
-	@AutoWired
+	@Autowired
 	public Binding binding;
 
-	@AutoWired
+	@Autowired
 	public CachingConnectionFactory connectionFactory;
 
-	@AutoWired
+	@Autowired
 	public RabbitTemplate rabbitTemplate;
 
-	@AutoWired
+	@Autowired
 	public CashRegisterReceiverService receiver;
 
 	@TestConfiguration
@@ -43,7 +49,7 @@ class CashregisterApplicationTests {
 		public CachingConnectionFactory connectionFactory() {
 			CachingConnectionFactory connectionFactory = new CachingConnectionFactory();
 			connectionFactory.setHost("localhost");
-			connectionFactory.setPort("5672");
+			connectionFactory.setPort(5672);
 			connectionFactory.setUsername("guest");
 			connectionFactory.setPassword("guest");
 			return connectionFactory;
@@ -52,6 +58,8 @@ class CashregisterApplicationTests {
 
 	@Test
 	void sendMessage() {
+//		container.start();
+
 		TicketDto ticketDto = new TicketDto(
 			"Petrov",
 			"Ivan",
@@ -59,7 +67,7 @@ class CashregisterApplicationTests {
 			"105",
 			"Center",
 			null,
-			500
+				BigDecimal.valueOf(500)
 		);
 
 		rabbitTemplate.convertAndSend(

@@ -6,8 +6,12 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class TicketDto implements Serializable {
     /**
      * Passenger last name
