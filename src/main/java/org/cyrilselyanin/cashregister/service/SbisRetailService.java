@@ -18,7 +18,7 @@ public class SbisRetailService {
     );
 
     /**
-     * Reg cash
+     * Reistering cash
      * @param regCashUrl Sbis retail string url
      * @param token Sbis service token
      * @param sid Sbis session id

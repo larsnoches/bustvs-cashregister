@@ -26,7 +26,7 @@ public class CashRegisterReceiverService {
      */
     @RabbitHandler
     public void receive(TicketDto in) {
-        
+        // sbisServiceImpl.requestToken();
         logger.debug("Incoming ticket dto");
         logger.debug("{}", in);
     }
