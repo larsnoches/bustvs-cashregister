@@ -13,14 +13,20 @@ import org.springframework.stereotype.Service;
 @Service
 @RabbitListener(queues = "#{autoDeletingQueue.name}")
 public class CashRegisterReceiverService {
-    Logger logger = LoggerFactory.getLogger(CashRegisterReceiverService.class);
+    private final SbisServiceImpl sbisServiceImpl;
+    private final Logger logger = LoggerFactory.getLogger(CashRegisterReceiverService.class);
+
+    public CashRegisterReceiverService(SbisServiceImpl sbisServiceImpl) {
+        this.sbisServiceImpl = sbisServiceImpl;
+    }
 
     /**
      * Receive method
-     * @param in Some json object
+     * @param in Some ticketDto object
      */
     @RabbitHandler
     public void receive(TicketDto in) {
+        
         logger.debug("Incoming ticket dto");
         logger.debug("{}", in);
     }
