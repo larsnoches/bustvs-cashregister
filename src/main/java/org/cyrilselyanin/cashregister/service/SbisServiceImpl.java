@@ -6,7 +6,7 @@ import org.cyrilselyanin.cashregister.dto.RegCashRequestDto;
 import org.cyrilselyanin.cashregister.dto.RegCashResponseDto;
 import org.cyrilselyanin.cashregister.dto.TokenRequestDto;
 import org.cyrilselyanin.cashregister.dto.TokenResponseDto;
-import org.cyrilselyanin.exception.RegCashException;
+import org.cyrilselyanin.cashregister.exception.RegCashException;
 
 import java.io.IOException;
 import java.math.BigDecimal;

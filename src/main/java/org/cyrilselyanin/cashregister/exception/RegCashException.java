@@ -1,4 +1,4 @@
-package org.cyrilselyanin.exception;
+package org.cyrilselyanin.cashregister.exception;
 
 public class RegCashException extends RuntimeException {
     public RegCashException(String message) {

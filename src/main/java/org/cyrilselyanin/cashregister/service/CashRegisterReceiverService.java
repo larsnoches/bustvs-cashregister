@@ -1,11 +1,17 @@
 package org.cyrilselyanin.cashregister.service;
 
 import org.cyrilselyanin.cashregister.dto.TicketDto;
+import org.cyrilselyanin.cashregister.dto.TokenRequestDto;
+import org.cyrilselyanin.cashregister.exception.RegCashException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+import java.util.Optional;
 
 /**
  * Cash register receiver, annotated as rabbit listener.
