@@ -1,12 +1,14 @@
 package org.cyrilselyanin.cashregister.service;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.cyrilselyanin.cashregister.dto.TicketDto;
 import org.cyrilselyanin.cashregister.dto.RegCashRequestDto;
 import org.cyrilselyanin.cashregister.dto.RegCashResponseDto;
 import org.cyrilselyanin.cashregister.dto.TokenRequestDto;
 import org.cyrilselyanin.cashregister.dto.TokenResponseDto;
 import org.cyrilselyanin.cashregister.exception.RegCashException;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -14,6 +16,7 @@ import java.math.BigDecimal;
 /**
  * Sbis service implementation
  */
+@Service
 public class SbisServiceImpl implements SbisService {
     private final String authUrl = "https://online.sbis.ru/oauth/service";
     private final String regCashUrl = "https://api.sbis.ru/retail/sale/create";

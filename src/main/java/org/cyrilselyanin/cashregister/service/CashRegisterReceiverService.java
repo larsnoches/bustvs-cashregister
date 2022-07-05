@@ -25,11 +25,11 @@ public class CashRegisterReceiverService {
     /**
     * Properties for token requesting
     */
-    @Value("#{cashregister.sbis-auth.appClientId}")
+    @Value("${cashregister.sbis-auth.appClientId}")
     private String appClientId;
-    @Value("#{cashregister.sbis-auth.appSecret}")
+    @Value("${cashregister.sbis-auth.appSecret}")
     private String appSecret;
-    @Value("#{cashregister.sbis-auth.secretKey}")
+    @Value("${cashregister.sbis-auth.secretKey}")
     private String secretKey;
 
     public CashRegisterReceiverService(SbisServiceImpl sbisService) {
@@ -47,14 +47,14 @@ public class CashRegisterReceiverService {
         logger.debug("...printed ticket dto");
 
         // reg cash with old token props
-        Optional<String> token = Optional.of(sbisService.getToken());
-        Optional<String> sid = Optional.of(sbisService.getSid());
+        Optional<String> token = Optional.ofNullable(sbisService.getToken());
+        Optional<String> sid = Optional.ofNullable(sbisService.getSid());
         if (token.isPresent() && sid.isPresent()) {
             try {
                 sbisService.regCash(in);
                 logger.debug("token and sid are present, regcash is called");
             } catch (RegCashException ex) {
-                logger.error("With already set auth props regCash throws exception. {}", ex);
+                logger.error("With already set auth props regCash throws exception.", ex);
             }
             return;
         }
@@ -68,16 +68,16 @@ public class CashRegisterReceiverService {
 
         try {
             sbisService.requestToken(requestDto);
-            token = Optional.of(sbisService.getToken());
-            sid = Optional.of(sbisService.getSid());
+            token = Optional.ofNullable(sbisService.getToken());
+            sid = Optional.ofNullable(sbisService.getSid());
             if (token.isPresent() && sid.isPresent()) {
                 sbisService.regCash(in);
                 logger.debug("token and sid are present, regcash is called");
             }
         } catch (RegCashException ex) {
-            logger.error("With new auth props regCash throws exception. {}", ex);
+            logger.error("With new auth props regCash throws exception.", ex);
         } catch (IOException ex) {
-            logger.error("Trying to auth and got exception. {}", ex);
+            logger.error("Trying to auth and got exception.", ex);
         }
     }
 }

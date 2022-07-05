@@ -1,5 +1,5 @@
 cashregister:
-  sbis-auth: 
-    appClientId: ${SBIS_AUTH_APPCLIENT_ID}
-    appSecret: ${SBIS_AUTH_APPSECRET}
-    secretKey: ${SBIS_AUTH_SECRETKEY}
+  sbis-auth:
+    appClientId: ${SBIS_AUTH_APPCLIENT_ID:""}
+    appSecret: ${SBIS_AUTH_APPSECRET:""}
+    secretKey: ${SBIS_AUTH_SECRETKEY:""}
