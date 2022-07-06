@@ -55,7 +55,7 @@ class SbisServiceTest {
                 .code(200).message("").body(
                         ResponseBody.create(
             "{" +
-                                "\"token\": \"val\"" +
+                                "\"token\": \"val\"," +
                                 "\"sid\": \"val\"" +
                             "}",
                             MediaType.parse("application/json")
