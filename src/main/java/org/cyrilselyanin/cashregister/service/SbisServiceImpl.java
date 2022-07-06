@@ -8,6 +8,7 @@ import org.cyrilselyanin.cashregister.dto.RegCashResponseDto;
 import org.cyrilselyanin.cashregister.dto.TokenRequestDto;
 import org.cyrilselyanin.cashregister.dto.TokenResponseDto;
 import org.cyrilselyanin.cashregister.exception.RegCashException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -20,14 +21,26 @@ import java.math.BigDecimal;
 public class SbisServiceImpl implements SbisService {
     private final String authUrl = "https://online.sbis.ru/oauth/service";
     private final String regCashUrl = "https://api.sbis.ru/retail/sale/create";
-    private final SbisAuthService sbisAuthService = new SbisAuthService();
-    private final SbisRetailService sbisRetailService = new SbisRetailService();
+//    private final SbisAuthService sbisAuthService = new SbisAuthService();
+//    private final SbisRetailService sbisRetailService = new SbisRetailService();
+    @Autowired
+    private final SbisAuthService sbisAuthService;
+    @Autowired
+    private final SbisRetailService sbisRetailService;
 
     @Getter
     private String token;
 
     @Getter
     private String sid;
+
+    public SbisServiceImpl(
+            SbisAuthService sbisAuthService,
+            SbisRetailService sbisRetailService
+    ) {
+        this.sbisAuthService = sbisAuthService;
+        this.sbisRetailService = sbisRetailService;
+    }
 
     @Override
     public void requestToken(TokenRequestDto requestDto) throws IOException {

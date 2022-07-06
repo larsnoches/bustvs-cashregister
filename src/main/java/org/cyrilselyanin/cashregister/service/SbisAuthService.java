@@ -4,15 +4,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.cyrilselyanin.cashregister.dto.TokenRequestDto;
 import org.cyrilselyanin.cashregister.dto.TokenResponseDto;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.io.IOException;
 
 /**
  * Auth service of the Sbis-adapter
  * author Cyril Selyanin
  */
+@Service
 public class SbisAuthService {
-    private final OkHttpClient okHttpClient = new OkHttpClient();
+    private final OkHttpClient okHttpClient;
     private final MediaType JSON_MEDIA = MediaType.get("application/json; charset=utf-8");
+
+    public SbisAuthService(OkHttpClient okHttpClient) {
+        this.okHttpClient = okHttpClient;
+    }
 
     /**
      * Get token from the Sbis service

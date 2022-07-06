@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
 import org.cyrilselyanin.cashregister.dto.RegCashRequestDto;
 import org.cyrilselyanin.cashregister.dto.RegCashResponseDto;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 
@@ -11,11 +12,16 @@ import java.io.IOException;
  * Retail service of the Sbis-adapter
  * author Cyril Selyanin
  */
+@Service
 public class SbisRetailService {
-    private final OkHttpClient okHttpClient = new OkHttpClient();
+    private final OkHttpClient okHttpClient;
     private final MediaType JSON_MEDIA = MediaType.get(
             "application/json; charset=utf-8"
     );
+
+    public SbisRetailService(OkHttpClient okHttpClient) {
+        this.okHttpClient = okHttpClient;
+    }
 
     /**
      * Reistering cash

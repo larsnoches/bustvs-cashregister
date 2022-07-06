@@ -20,7 +20,7 @@ import java.util.Optional;
 @RabbitListener(queues = "#{autoDeletingQueue.name}")
 public class CashRegisterReceiverService {
     private final SbisServiceImpl sbisService;
-    private final Logger logger = LoggerFactory.getLogger(CashRegisterReceiverService.class);
+    private static final Logger logger = LoggerFactory.getLogger(CashRegisterReceiverService.class);
 
     /**
     * Properties for token requesting
