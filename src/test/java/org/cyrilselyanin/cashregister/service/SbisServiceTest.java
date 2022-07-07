@@ -33,6 +33,7 @@ class SbisServiceTest {
 
     @Test
     public void getToken_thenCorrect() throws IOException {
+        // stabs
         SbisTokenRequestDto requestDto = SbisTokenRequestDto.create(
                 "appClientId_123",
                 "appSecret_123",
@@ -51,6 +52,7 @@ class SbisServiceTest {
                             MediaType.parse("application/json")
                         ))
                 .build();
+        // mock
         when(okHttpClient.newCall(any())).thenReturn(mock(Call.class));
         when(okHttpClient.newCall(any()).execute()).thenReturn(response);
 
@@ -70,7 +72,7 @@ class SbisServiceTest {
 
     @Test
     public void regCash_thenCorrect() throws IOException {
-        // stab
+        // stabs
         TicketDto ticketDto = new TicketDto(
                 "Petrov",
                 "Ivan",
@@ -96,7 +98,7 @@ class SbisServiceTest {
                         ))
                 .build();
 
-        // okHttpClient resets after first test ran
+        // mock, okHttpClient resets after first test ran
         when(okHttpClient.newCall(any())).thenReturn(mock(Call.class));
         when(okHttpClient.newCall(any()).execute()).thenReturn(response);
 
