@@ -106,7 +106,7 @@ class SbisServiceTest {
     // }
 
     @Test
-    public void regCash_thenCorrect() {
+    public void regCash_thenCorrect() throws IOException {
         // stab
         TicketDto ticketDto = new TicketDto(
                 "Petrov",
@@ -114,7 +114,7 @@ class SbisServiceTest {
                 "Ivanovich",
                 "105",
                 "Center",
-                null,
+                Timestamp.valueOf("2022-07-07 10:09:21.61"),
                 BigDecimal.valueOf(500)
         );
 

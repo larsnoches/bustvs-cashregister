@@ -1,10 +1,14 @@
 package org.cyrilselyanin.cashregister.dto;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 
+@NoArgsConstructor
 @Setter
+@Getter
 public class RegCashRequestDto {
     // обязательный, ID организации: 123
     Long companyID;
