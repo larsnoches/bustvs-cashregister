@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegCashResponseDto {
+public class SbisRegCashResponseDto {
     private RegCashResponseResultDto result;
 
     @JsonGetter("Result")

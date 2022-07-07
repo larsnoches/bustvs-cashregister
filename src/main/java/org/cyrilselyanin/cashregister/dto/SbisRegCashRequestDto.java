@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Setter
 @Getter
-public class RegCashRequestDto {
+public class SbisRegCashRequestDto {
     // обязательный, ID организации: 123
     Long companyID;
 

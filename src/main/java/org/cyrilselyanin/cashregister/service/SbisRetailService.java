@@ -2,8 +2,8 @@ package org.cyrilselyanin.cashregister.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
-import org.cyrilselyanin.cashregister.dto.RegCashRequestDto;
-import org.cyrilselyanin.cashregister.dto.RegCashResponseDto;
+import org.cyrilselyanin.cashregister.dto.SbisRegCashRequestDto;
+import org.cyrilselyanin.cashregister.dto.SbisRegCashResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -28,18 +28,18 @@ public class SbisRetailService {
      * @param regCashUrl Sbis retail string url
      * @param token Sbis service token
      * @param sid Sbis session id
-     * @param regCashRequestDto Request dto
+     * @param sbisRegCashRequestDto Request dto
      * @return Response dto
      * @throws NullPointerException
      * @throws IOException
      */
-    public RegCashResponseDto regCash(
+    public SbisRegCashResponseDto regCash(
             String regCashUrl,
             String token,
             String sid,
-            RegCashRequestDto regCashRequestDto
+            SbisRegCashRequestDto sbisRegCashRequestDto
     ) throws NullPointerException, IOException {
-        String json = new ObjectMapper().writeValueAsString(regCashRequestDto);
+        String json = new ObjectMapper().writeValueAsString(sbisRegCashRequestDto);
         RequestBody requestBody = RequestBody.create(json, JSON_MEDIA);
         Request request = new Request.Builder()
                 .url(regCashUrl)
@@ -50,7 +50,7 @@ public class SbisRetailService {
         try (Response response = okHttpClient.newCall(request).execute()) {
             String respJson = response.body().string();
             return new ObjectMapper()
-                    .readerFor(RegCashResponseDto.class)
+                    .readerFor(SbisRegCashResponseDto.class)
                     .readValue(respJson);
         }
     }

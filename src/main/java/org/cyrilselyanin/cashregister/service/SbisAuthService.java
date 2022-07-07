@@ -2,9 +2,8 @@ package org.cyrilselyanin.cashregister.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import okhttp3.*;
-import org.cyrilselyanin.cashregister.dto.TokenRequestDto;
-import org.cyrilselyanin.cashregister.dto.TokenResponseDto;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.cyrilselyanin.cashregister.dto.SbisTokenRequestDto;
+import org.cyrilselyanin.cashregister.dto.SbisTokenResponseDto;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -29,9 +28,9 @@ public class SbisAuthService {
      * @return Token response
      * @throws IOException
      */
-    public TokenResponseDto getToken(
+    public SbisTokenResponseDto getToken(
             String tokenUrl,
-            TokenRequestDto requestDto
+            SbisTokenRequestDto requestDto
     ) throws IOException {
         String json = new ObjectMapper().writeValueAsString(requestDto);
         RequestBody requestBody = RequestBody.create(json, JSON_MEDIA);
@@ -41,10 +40,10 @@ public class SbisAuthService {
                 .build();
         try (Response response = okHttpClient.newCall(request).execute()) {
             String respJson = response.body().string();
-            TokenResponseDto tokenResponseDto = new ObjectMapper()
-                    .readerFor(TokenResponseDto.class)
+            SbisTokenResponseDto sbisTokenResponseDto = new ObjectMapper()
+                    .readerFor(SbisTokenResponseDto.class)
                     .readValue(respJson);
-            return tokenResponseDto;
+            return sbisTokenResponseDto;
         }
     }
 

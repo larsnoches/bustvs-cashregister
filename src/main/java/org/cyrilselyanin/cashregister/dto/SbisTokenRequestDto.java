@@ -6,17 +6,17 @@ import lombok.Setter;
 
 @NoArgsConstructor
 @Setter
-public class TokenRequestDto {
+public class SbisTokenRequestDto {
     private String appClientId;
     private String appSecret;
     private String secretKey;
 
-    public static TokenRequestDto create(
+    public static SbisTokenRequestDto create(
             String appClientId,
             String appSecret,
             String secretKey
     ) {
-        TokenRequestDto dto = new TokenRequestDto();
+        SbisTokenRequestDto dto = new SbisTokenRequestDto();
         dto.setAppClientId(appClientId);
         dto.setAppSecret(appSecret);
         dto.setSecretKey(secretKey);

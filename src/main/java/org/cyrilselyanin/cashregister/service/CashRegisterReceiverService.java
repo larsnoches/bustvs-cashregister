@@ -1,12 +1,16 @@
 package org.cyrilselyanin.cashregister.service;
 
+import org.cyrilselyanin.cashregister.dto.AfterRegCashDto;
 import org.cyrilselyanin.cashregister.dto.TicketDto;
-import org.cyrilselyanin.cashregister.dto.TokenRequestDto;
+import org.cyrilselyanin.cashregister.dto.SbisTokenRequestDto;
 import org.cyrilselyanin.cashregister.exception.RegCashException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +24,8 @@ import java.util.Optional;
 @RabbitListener(queues = "#{autoDeletingQueue.name}")
 public class CashRegisterReceiverService {
     private final SbisServiceImpl sbisService;
+    private final RabbitTemplate rabbitTemplate;
+    private final DirectExchange direct;
     private static final Logger logger = LoggerFactory.getLogger(CashRegisterReceiverService.class);
 
     /**
@@ -32,8 +38,14 @@ public class CashRegisterReceiverService {
     @Value("${cashregister.sbis-auth.secretKey}")
     private String secretKey;
 
-    public CashRegisterReceiverService(SbisServiceImpl sbisService) {
+    public CashRegisterReceiverService(
+            SbisServiceImpl sbisService,
+            RabbitTemplate rabbitTemplate,
+            DirectExchange direct
+    ) {
         this.sbisService = sbisService;
+        this.rabbitTemplate = rabbitTemplate;
+        this.direct = direct;
     }
 
     /**
@@ -60,7 +72,7 @@ public class CashRegisterReceiverService {
         }
 
         // new dto for token request
-        TokenRequestDto requestDto = TokenRequestDto.create(
+        SbisTokenRequestDto requestDto = SbisTokenRequestDto.create(
                 appClientId,
                 appSecret,
                 secretKey
@@ -73,11 +85,34 @@ public class CashRegisterReceiverService {
             if (token.isPresent() && sid.isPresent()) {
                 sbisService.regCash(in);
                 logger.debug("token and sid are present, regcash is called");
+                rabbitTemplate.convertAndSend(
+                        direct.getName(),
+                        "regcash",
+                        new AfterRegCashDto(
+                            AfterRegCashDto.Status.DONE
+                        )
+                );
             }
         } catch (RegCashException ex) {
             logger.error("With new auth props regCash throws exception.", ex);
+            rabbitTemplate.convertAndSend(
+                    direct.getName(),
+                    "regcash",
+                    new AfterRegCashDto(
+                            AfterRegCashDto.Status.ERROR,
+                            ex.getMessage()
+                    )
+            );
         } catch (IOException ex) {
             logger.error("Trying to auth and got exception.", ex);
+            rabbitTemplate.convertAndSend(
+                    direct.getName(),
+                    "regcash",
+                    new AfterRegCashDto(
+                            AfterRegCashDto.Status.ERROR,
+                            ex.getMessage()
+                    )
+            );
         }
     }
 }

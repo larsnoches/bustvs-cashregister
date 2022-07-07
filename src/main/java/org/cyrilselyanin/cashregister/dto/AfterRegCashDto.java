@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 /**
  * Dto for response in communication between services.
  * It will say if operation was done or not.
@@ -12,7 +14,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
-public class AfterRegCashDto {
+public class AfterRegCashDto implements Serializable {
     private Status status;
     private String statusText;
 

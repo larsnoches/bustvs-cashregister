@@ -1,12 +1,8 @@
 package org.cyrilselyanin.cashregister.service;
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
-import org.cyrilselyanin.cashregister.dto.TicketDto;
-import org.cyrilselyanin.cashregister.dto.RegCashRequestDto;
-import org.cyrilselyanin.cashregister.dto.RegCashResponseDto;
-import org.cyrilselyanin.cashregister.dto.TokenRequestDto;
-import org.cyrilselyanin.cashregister.dto.TokenResponseDto;
+import org.cyrilselyanin.cashregister.dto.*;
+import org.cyrilselyanin.cashregister.dto.SbisRegCashRequestDto;
 import org.cyrilselyanin.cashregister.exception.RegCashException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,13 +18,8 @@ public class SbisServiceImpl implements SbisService {
     private final String authUrl = "https://online.sbis.ru/oauth/service";
     private final String regCashUrl = "https://api.sbis.ru/retail/sale/create";
 
-//    private final SbisAuthService sbisAuthService = new SbisAuthService();
-//    private final SbisRetailService sbisRetailService = new SbisRetailService();
-
-    @Autowired
     private final SbisAuthService sbisAuthService;
 
-    @Autowired
     private final SbisRetailService sbisRetailService;
 
     @Getter
@@ -46,8 +37,8 @@ public class SbisServiceImpl implements SbisService {
     }
 
     @Override
-    public void requestToken(TokenRequestDto requestDto) throws IOException {
-        TokenResponseDto responseDto = sbisAuthService.getToken(authUrl, requestDto);
+    public void requestToken(SbisTokenRequestDto requestDto) throws IOException {
+        SbisTokenResponseDto responseDto = sbisAuthService.getToken(authUrl, requestDto);
         TokenResponseDtoAdapter tokenResponseDtoAdapter = new TokenResponseDtoAdapter();
         tokenResponseDtoAdapter.adapt(responseDto);
     }
@@ -55,10 +46,10 @@ public class SbisServiceImpl implements SbisService {
     @Override
     public void regCash(TicketDto ticketDto) {
         RegCashRequestDtoAdapter regCashRequestDtoAdapter = new RegCashRequestDtoAdapter();
-        RegCashRequestDto regCashRequestDto = regCashRequestDtoAdapter.adapt(ticketDto);
+        SbisRegCashRequestDto sbisRegCashRequestDto = regCashRequestDtoAdapter.adapt(ticketDto);
         try {
-            RegCashResponseDto regCashResponseDto = sbisRetailService.regCash(
-                    regCashUrl, token, sid, regCashRequestDto
+            SbisRegCashResponseDto sbisRegCashResponseDto = sbisRetailService.regCash(
+                    regCashUrl, token, sid, sbisRegCashRequestDto
             );
         } catch (IOException | NullPointerException ex) {
             throw new RegCashException(ex.getMessage());
@@ -67,15 +58,15 @@ public class SbisServiceImpl implements SbisService {
     }
 
     public class TokenResponseDtoAdapter {
-        public void adapt(TokenResponseDto dto) {
+        public void adapt(SbisTokenResponseDto dto) {
             token = dto.getToken();
             sid = dto.getSid();
         }
     }
 
     public class RegCashRequestDtoAdapter {
-        public RegCashRequestDto adapt(TicketDto ticketDto) {
-            RegCashRequestDto dto = new RegCashRequestDto();
+        public SbisRegCashRequestDto adapt(TicketDto ticketDto) {
+            SbisRegCashRequestDto dto = new SbisRegCashRequestDto();
             dto.setCompanyID(1L);
             dto.setCashierFIO("Wow wow wow");
             dto.setOperationType(1);
