@@ -21,10 +21,13 @@ import java.math.BigDecimal;
 public class SbisServiceImpl implements SbisService {
     private final String authUrl = "https://online.sbis.ru/oauth/service";
     private final String regCashUrl = "https://api.sbis.ru/retail/sale/create";
+
 //    private final SbisAuthService sbisAuthService = new SbisAuthService();
 //    private final SbisRetailService sbisRetailService = new SbisRetailService();
+
     @Autowired
     private final SbisAuthService sbisAuthService;
+
     @Autowired
     private final SbisRetailService sbisRetailService;
 

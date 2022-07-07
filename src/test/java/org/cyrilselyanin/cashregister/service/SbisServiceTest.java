@@ -39,10 +39,8 @@ class SbisServiceTest {
     String token;
     String sid;
 
-    @BeforeEach
-    public void init() throws IOException {
-//        sbisService = new SbisServiceImpl();
-//
+    @Test
+    public void getToken_thenCorrect() throws IOException {
         TokenRequestDto requestDto = TokenRequestDto.create(
                 "appClientId_123",
                 "appSecret_123",
@@ -54,7 +52,7 @@ class SbisServiceTest {
                 .protocol(Protocol.HTTP_1_1)
                 .code(200).message("").body(
                         ResponseBody.create(
-            "{" +
+                            "{" +
                                 "\"token\": \"val\"," +
                                 "\"sid\": \"val\"" +
                             "}",
@@ -64,38 +62,15 @@ class SbisServiceTest {
         when(okHttpClient.newCall(any())).thenReturn(mock(Call.class));
         when(okHttpClient.newCall(any()).execute()).thenReturn(response);
 
-//        final Call remoteCall = mock(Call.class);
-//
-//        when(remoteCall.execute()).thenReturn(response);
-//        when(okHttpClient.newCall(any())).thenReturn(remoteCall);
-
-//        when(okHttpClient.newCall(any(Request.class)).execute()).thenReturn(
-//                new Response.Builder()
-//                .request(new Request.Builder().url("http://url.com").build())
-//                .protocol(Protocol.HTTP_1_1)
-//                .code(200).message("").body(
-//                        ResponseBody.create(
-//                                "",
-//                                MediaType.parse("application/json")
-//                        ))
-//                .build()
-//        );
-
-//        try {
-//            OkHttpClient mockedClient = mockHttpClient(
-//        "{" +
-//                    "\"token\": \"val\"" +
-//                    "\"sid\": \"val\"" +
-//                "}"
-//            );
-//        } catch (IOException ex) {
-//            //
-//        }
-
         try {
             sbisService.requestToken(requestDto);
             token = sbisService.getToken();
             sid = sbisService.getSid();
+
+            assertNotNull(token);
+            assertNotNull(sid);
+            assertThat(token, instanceOf(String.class));
+            assertThat(sid, instanceOf(String.class));
         } catch (IOException ex) {
             System.out.println(ex);
         }
@@ -122,12 +97,47 @@ class SbisServiceTest {
 //        return okHttpClient;
 //    }
 
+    // @Test
+    // public void getToken_thenCorrect() {
+    //     assertNotNull(token);
+    //     assertNotNull(sid);
+    //     assertThat(token, instanceOf(String.class));
+    //     assertThat(sid, instanceOf(String.class));
+    // }
+
     @Test
-    public void getToken_thenCorrect() {
-        assertNotNull(token);
-        assertNotNull(sid);
-        assertThat(token, instanceOf(String.class));
-        assertThat(sid, instanceOf(String.class));
+    public void regCash_thenCorrect() {
+        // stab
+        TicketDto ticketDto = new TicketDto(
+                "Petrov",
+                "Ivan",
+                "Ivanovich",
+                "105",
+                "Center",
+                null,
+                BigDecimal.valueOf(500)
+        );
+
+        final Response response = new Response.Builder()
+                .request(new Request.Builder().url("http://url.com").build())
+                .protocol(Protocol.HTTP_1_1)
+                .code(200).message("").body(
+                        ResponseBody.create(
+                            "{" +
+                                "\"Result\":" +
+                                    "{" +
+                                        "\"payId\": \"val\"" +
+                                    "}" +
+                            "}",
+                            MediaType.parse("application/json")
+                        ))
+                .build();
+
+        // okHttpClient resets after first test ran
+        when(okHttpClient.newCall(any())).thenReturn(mock(Call.class));
+        when(okHttpClient.newCall(any()).execute()).thenReturn(response);
+
+        sbisService.regCash(ticketDto);
     }
 
 //    @Test
