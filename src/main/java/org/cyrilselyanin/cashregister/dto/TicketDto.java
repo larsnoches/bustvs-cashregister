@@ -21,42 +21,42 @@ public class TicketDto implements Serializable {
     /**
      * Passenger last name
      */
-    @JsonProperty("passengerLastname")
+//    @JsonProperty("passengerLastname")
     private String passengerLastname;
 
     /**
      * Passenger first name
      */
-    @JsonProperty("passengerFirstname")
+//    @JsonProperty("passengerFirstname")
     private String passengerFirstname;
 
     /**
      * Passenger middle name
      */
-    @JsonProperty("passengerMiddlename")
+//    @JsonProperty("passengerMiddlename")
     private String passengerMiddlename;
 
     /**
      * Number of a bus route
      */
-    @JsonProperty("busRouteNumber")
+//    @JsonProperty("busRouteNumber")
     private String busRouteNumber;
 
     /**
      * Name of a departure bus point
      */
-    @JsonProperty("departureBuspointName")
+//    @JsonProperty("departureBuspointName")
     private String departureBuspointName;
 
     /**
      * Time stamp of a bus departure
      */
-    @JsonProperty("departureDateTime")
+//    @JsonProperty("departureDateTime")
     private Timestamp departureDateTime;
 
     /**
      * Ticket price
      */
-    @JsonProperty("ticketPrice")
+//    @JsonProperty("ticketPrice")
     private BigDecimal price;
 }

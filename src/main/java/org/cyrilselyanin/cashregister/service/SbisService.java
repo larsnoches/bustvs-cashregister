@@ -1,6 +1,5 @@
 package org.cyrilselyanin.cashregister.service;
 
-import org.cyrilselyanin.cashregister.dto.AfterRegCashDto;
 import org.cyrilselyanin.cashregister.dto.TicketDto;
 import org.cyrilselyanin.cashregister.dto.SbisTokenRequestDto;
 import java.io.IOException;
