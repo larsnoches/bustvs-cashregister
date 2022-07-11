@@ -1,8 +1,6 @@
 package org.cyrilselyanin.cashregister.config;
 
 import okhttp3.OkHttpClient;
-import org.cyrilselyanin.cashregister.service.SbisAuthService;
-import org.cyrilselyanin.cashregister.service.SbisRetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -4,7 +4,6 @@ import lombok.Getter;
 import org.cyrilselyanin.cashregister.dto.*;
 import org.cyrilselyanin.cashregister.dto.SbisRegCashRequestDto;
 import org.cyrilselyanin.cashregister.exception.RegCashException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
