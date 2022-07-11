@@ -63,7 +63,7 @@ public class SbisServiceImpl implements SbisService {
         }
     }
 
-    public class RegCashRequestDtoAdapter {
+    public static class RegCashRequestDtoAdapter {
         public SbisRegCashRequestDto adapt(TicketDto ticketDto) {
             SbisRegCashRequestDto dto = new SbisRegCashRequestDto();
             dto.setCompanyID(1L);
