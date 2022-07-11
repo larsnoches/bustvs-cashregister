@@ -56,6 +56,11 @@ public class SbisServiceImpl implements SbisService {
 
     }
 
+//    @Override
+//    public String getToken() {
+//        return token;
+//    }
+
     public class TokenResponseDtoAdapter {
         public void adapt(SbisTokenResponseDto dto) {
             token = dto.getToken();

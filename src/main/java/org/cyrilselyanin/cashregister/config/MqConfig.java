@@ -1,7 +1,5 @@
 package org.cyrilselyanin.cashregister.config;
 
-import org.cyrilselyanin.cashregister.service.CashRegisterReceiverService;
-import org.cyrilselyanin.cashregister.service.SbisServiceImpl;
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
@@ -74,14 +72,5 @@ public class MqConfig {
         public Jackson2JsonMessageConverter producerJackson2JsonMessageConverter() {
             return new Jackson2JsonMessageConverter();
         }
-
-        /**
-         * Bean for cash register receiver
-         * @return cash register receiver instance
-         */
-//        @Bean
-//        public CashRegisterReceiverService receiver(final SbisServiceImpl sbisService) {
-//            return new CashRegisterReceiverService(sbisService);
-//        }
     }
 }

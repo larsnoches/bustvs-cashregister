@@ -20,4 +20,7 @@ public interface SbisService {
      * @param ticketDto An internal dto with data for operation
      */
     void regCash(TicketDto ticketDto);
+
+    String getToken();
+    String getSid();
 }
