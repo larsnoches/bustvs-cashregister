@@ -38,8 +38,8 @@ public class SbisServiceImpl implements SbisService {
     @Override
     public void requestToken(SbisTokenRequestDto requestDto) throws IOException {
         SbisTokenResponseDto responseDto = sbisAuthService.getToken(authUrl, requestDto);
-        TokenResponseDtoAdapter tokenResponseDtoAdapter = new TokenResponseDtoAdapter();
-        tokenResponseDtoAdapter.adapt(responseDto);
+        TokenResponseDtoAdapter tokenResponseDtoAdapter = new TokenResponseDtoAdapter(responseDto);
+        tokenResponseDtoAdapter.adapt();
     }
 
     @Override
@@ -61,10 +61,17 @@ public class SbisServiceImpl implements SbisService {
 //        return token;
 //    }
 
+    /**
+     * Adapter for token response dto
+     */
     public class TokenResponseDtoAdapter {
-        public void adapt(SbisTokenResponseDto dto) {
-            token = dto.getToken();
-            sid = dto.getSid();
+        private final SbisTokenResponseDto adaptee;
+        public TokenResponseDtoAdapter(SbisTokenResponseDto adaptee) {
+            this.adaptee = adaptee;
+        }
+        public void adapt() {
+            token = adaptee.getToken();
+            sid = adaptee.getSid();
         }
     }
 
